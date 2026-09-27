@@ -1,0 +1,7 @@
+# GCP service account keys (never commit these)
+gen-lang-client-*.json
+*-key.json
+*.pem
+
+# OS junk
+.DS_Store
