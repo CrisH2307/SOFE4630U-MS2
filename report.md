@@ -1,10 +1,6 @@
-# SOFE4630U Milestone 2 Report
+# Milestone 2 Report
 
 ### Data Storage and Integration Connectors
-
-**Author:** Khang (CrisH2307)
-**Date:** 2026-09-27
-
 This report covers the discussion and design portions of Milestone 2, where we deployed MySQL and Redis on GKE and wired them up to Google Pub/Sub through Integration Connectors sink connectors.
 
 ---
@@ -29,8 +25,6 @@ A **sink connector**, which is what we built in this lab, sits at the other end 
 
 In short: a source connector reads from a system and writes to Pub/Sub, while a sink connector reads from Pub/Sub and writes to a system.
 
-<!-- SCREENSHOT: paste a diagram or console screenshot here showing your source vs sink flow, e.g. figures/discussion-source-sink.png -->
-
 ### What are the applications of connectors?
 
 Beyond this lab, connectors like these show up anywhere a team needs to move or store data without hand writing the plumbing between two systems every time:
@@ -52,7 +46,15 @@ In Milestone 1 we built a simple producer consumer pipeline: a producer publishe
 Producer -> Pub/Sub Topic -> Sink Connector (Application Integration) -> Data Store -> read back by a client
 ```
 
-<!-- SCREENSHOT: paste your Application Integration design canvas here, e.g. figures/design-pipeline.png -->
+The two integrations below both follow that same shape: a Cloud Pub/Sub trigger, a Data Mapping task to reshape the message, and a connector task that writes into the data store.
+
+![MySQL integration canvas](images/mySQL_integration.png)
+
+*The `mysql-integration` flow: Cloud Pub/Sub Trigger to Data Mapping to `mysql-connector`.*
+
+![Redis integration canvas](images/redis_integration.png)
+
+*The `redis-integration` flow: Cloud Pub/Sub Trigger to Data Mapping to `redis-connector`.*
 
 We used both data stores covered in this lab, matched to the shape of the data each pipeline carries.
 
@@ -61,7 +63,15 @@ We used both data stores covered in this lab, matched to the shape of the data e
 
 Splitting the design this way also shows that both connector types share the same trigger stage (Cloud Pub/Sub) and Application Integration setup. Only the destination task (MySQL connector vs. Redis connector) and the data mapping step change. That is really the payoff of using Integration Connectors instead of writing two separate custom consumers: the storage stage is swappable without touching the producer side of the pipeline at all.
 
-<!-- SCREENSHOT: paste your MySQL table result and your Redis GET result here, e.g. figures/mysql-result.png and figures/redis-result.png -->
+### Verifying the results
+
+On the MySQL side, querying the `SmartMeter` table shows the test rows from the integration (IDs -1 and -2) alongside the rows published later by `smartMeter.py`:
+
+![MySQL SmartMeter table](images/mySQL_data.png)
+
+On the Redis side, after running the integration and `produceImage.py`, the value can be read straight back from the Redis CLI:
+
+![Redis GET result](images/redis.png)
 
 ---
 
