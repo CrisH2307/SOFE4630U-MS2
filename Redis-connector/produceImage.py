@@ -12,7 +12,7 @@ files=glob.glob("*.json")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=files[0];
 
 # Set the project_id with your project ID
-project_id="";
+project_id="gen-lang-client-0526623421";
 topic_name = "Image2Redis";   # change it for your topic name if needed
 
 

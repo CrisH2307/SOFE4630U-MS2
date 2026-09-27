@@ -2,7 +2,7 @@ import redis        # pip install redis
 import io;
 import base64
 
-ip=""
+ip="34.130.143.144"
 r = redis.Redis(host=ip, port=6379, db=0,password='sofe4630u')
 
 value=r.get('image');
