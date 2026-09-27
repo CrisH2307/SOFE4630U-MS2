@@ -77,7 +77,4 @@ On the Redis side, after running the integration and `produceImage.py`, the valu
 
 ## Demonstration Videos
 
-* **Connectors demo (about 3 min):** [ADD LINK] — walks through the MySQL and Redis sink connectors and the check steps (test payload, then a new table row or a new Redis key).
-* **Design demo (about 5 min):** [ADD LINK] — walks through the extended producer to topic to connector to storage design end to end, for both the SmartMeter and image use cases.
-
-*(Placeholders. Swap in your recorded video links before submitting.)*
+https://drive.google.com/file/d/1dkLAPbgzS9-qUbuMYuXA_-YKWMeNUIAB/view?usp=drive_link
